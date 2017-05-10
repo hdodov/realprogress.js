@@ -14,7 +14,7 @@ Stuff like [ProgressBar.js](https://kimmobrunfeldt.github.io/progressbar.js/) by
 
 # Usage
 It is recommended to put the xhr-progress-bar snippet as close to the top of the `<body>` as possible. Whatever is visualizing the progress should be above it. Like this:
-```
+```html
 <body>
   <div id="bar"><p id="bar-resource"></p></div>
 
@@ -29,7 +29,7 @@ It is recommended to put the xhr-progress-bar snippet as close to the top of the
 
 # API
 There are just three events:
-```
+```js
 XHRProgressBar.onProgress = function (loaded, total) {
   // loaded --- number of loaded resources
   // total --- total resources found in HTML
@@ -49,7 +49,7 @@ XHRProgressBar.onLoad = function () {
 * The XHR should be fast, because it requests the very document that it's been loaded on, which is likely to be cached. However, _it's not instantaneous_, meaning that some resources (probably in the `<head>`) might be loaded _before_ the snippet and not counted towards the progress.
 * `<script>` tags block HTML parsing until they're loaded! Let's say I have this markup:
 
-    ```
+    ```html
     <img src="pic1.jpg">
     <script src="script.js"></script>
     <img src="pic2.jpg">
@@ -59,7 +59,7 @@ XHRProgressBar.onLoad = function () {
   xhr-progress-bar would effectively track `pic1`, but `pic2` and `pic3` will have the `load` event listener attached to them _only after_ `script.js` has loaded. That's because everything after the `</script>` tag is parsed _after_ the contents of the `<script>` are present. To avoid this, simply put your `<script>` tags at the bottom of the `<body>`.
 * Tracking the progress of scripts will not be accurate. 😢 The reason is the previous bullet point. If you have this markup:
 
-    ```
+    ```html
     <script src="script1.js"></script>
     <script src="script2.js"></script>
     <script src="script3.js"></script>
