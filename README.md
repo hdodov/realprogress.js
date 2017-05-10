@@ -1,5 +1,5 @@
 # What is realprogress.js?
-It's a real progress bar for web pages that works by utilizing XHR. In some cases, it's not 100% accurate, but it still tells the user that something is happening on your page. Here is a [demo](https://realprogress.netlify.com/). Use Chrome DevTools to apply network throttling and/or disable cache to better see how it works.
+It's a real progress bar for web pages that works by utilizing an `XMLHttpRequest`. In some cases, it's not 100% accurate, but it still tells the user that something is happening on your page. Here is a [demo](https://realprogress.netlify.com/). Use Chrome DevTools to apply network throttling and/or disable cache to better see how it works.
 
 ![realprogress.js in action](https://media.giphy.com/media/IjMpyriRcn4Hu/giphy.gif)
 
@@ -19,7 +19,7 @@ It is recommended to put the `realprogress.js` `<script>` as close to the top of
   <div id="bar"><p id="bar-resource"></p></div>
 
   <script type="text/javascript" src="realprogress.min.js"></script>
-  <script type="text/javascript" src="script.js"></script> <!-- uses xhrpb -->
+  <script type="text/javascript" src="script.js"></script> <!-- tells realprogress what to do -->
 
   <img src="http://placehold.it/350x150">
   <img src="http://placehold.it/350x160">
@@ -30,23 +30,23 @@ It is recommended to put the `realprogress.js` `<script>` as close to the top of
 # API
 There are just three events:
 ```js
-XHRProgressBar.onProgress = function (loaded, total) {
+RealProgress.onProgress = function (loaded, total) {
   // loaded --- number of loaded resources
   // total --- total resources found in HTML
 };
 
-XHRProgressBar.onResourceLoad = function (resource) {
+RealProgress.onResourceLoad = function (resource) {
   // resource --- loaded resource's href/src attribute
 };
 
-XHRProgressBar.onLoad = function () {
+RealProgress.onLoad = function () {
   // fired when `window.onload` is dispatched
 };
 ```
 
 # Keep in mind that...
 * It uses a regular expression! Be careful with large HTML files.
-* The XHR should be fast, because it requests the very document that it's been loaded on, which is likely to be cached. However, _it's not instantaneous_, meaning that some resources (probably in the `<head>`) might be loaded _before_ the snippet and not counted towards the progress.
+* The `XMLHttpRequest` should be fast, because it requests the very document that it's been initialized from, which is likely to be cached. However, _it's not instantaneous_, meaning that some resources (probably in the `<head>`) might be loaded _before_ the snippet and not counted towards the progress.
 * `<script>` tags block HTML parsing until they're loaded! Let's say I have this markup:
 
     ```html
