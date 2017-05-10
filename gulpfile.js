@@ -3,9 +3,9 @@ var uglify = require("gulp-uglify");
 var rename = require("gulp-rename");
 
 gulp.task("minify", function () {
-	return gulp.src("dist/xhr-progress-bar.js")
+	return gulp.src("dist/realprogress.js")
 		.pipe(uglify())
-		.pipe(rename("xhr-progress-bar.min.js"))
+		.pipe(rename("realprogress.min.js"))
 		.pipe(gulp.dest("dist"))
 		.pipe(gulp.dest("demo"));
 });

@@ -1,11 +1,14 @@
-XHRProgressBar.onProgress = function (loaded, total) {
-	document.getElementById("bar").style.width = ((loaded / total) * window.innerWidth) + "px";
+var para = document.getElementById("bar-resource"),
+	bar = document.getElementById("bar");
+
+RealProgress.onResourceLoad = function (name) {
+	para.innerHTML += (name.split("/").pop()) + " loaded!<br>";
 };
 
-XHRProgressBar.onResourceLoad = function (name) {
-	document.getElementById("bar-resource").innerHTML += (name.split("/").pop()) + " loaded!<br>";
+RealProgress.onProgress = function (loaded, total) {
+	bar.style.width = ((loaded / total) * window.innerWidth) + "px";
 };
 
-XHRProgressBar.onLoad = function () {
-	document.getElementById("bar").classList.add("hidden");
+RealProgress.onLoad = function () {
+	bar.classList.add("hidden");
 };

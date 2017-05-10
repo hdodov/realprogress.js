@@ -1,4 +1,4 @@
-window.XHRProgressBar = (function () {
+window.RealProgress = (function () {
 	var exports = {
 		onResourceLoad: function () {},
 		onProgress: function () {},
