@@ -1,0 +1,37 @@
+* {
+	margin: 0;
+	padding: 0;
+	position: relative;
+}
+
+body {
+	background: #003366;
+}
+
+img {
+	width: 0px;
+	height: 0px;
+}
+
+#bar {
+	width: 0px;
+	background: #3399FF;
+	transition: all 0.3s ease-out;
+
+	position: absolute;
+		top: 0;
+		left: 0;
+}
+
+	#bar.hidden {
+		background: #003366;
+	}
+
+	#bar p {
+		padding: 10px;
+
+		white-space: nowrap;
+		font-family: sans-serif;
+		font-size: 14pt;
+		color: #fff;
+	}

@@ -52,9 +52,14 @@ window.XHRProgressBar = (function () {
 
 	function _onLoadHandler(attr, tagName) {
 		return function () {
-			_loadedResources.push(attr);
-			exports.onResourceLoad(attr);
-			dispatchProgress();
+			// Plain HTML <script> tags need to have a load handler so that the elements
+			// after them can be bound. They don't need to be downloaded, however,
+			// so their `src` attribute is null.
+			if (typeof attr === "string") {
+				_loadedResources.push(attr);
+				exports.onResourceLoad(attr);
+				dispatchProgress();
+			}
 
 			if (tagName === "script") {
 				setTimeout(_bindElements, 0);
@@ -65,7 +70,6 @@ window.XHRProgressBar = (function () {
 	function dispatchProgress(fullyLoaded) {
 		if (_resources) {
 			exports.onProgress(
-				_loadedResources[_loadedResources.length - 1],
 				(fullyLoaded) ? _resources.length : _loadedResources.length,
 				_resources.length
 			);
