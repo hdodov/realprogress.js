@@ -65,4 +65,4 @@ RealProgress.onLoad = function () {
     <script src="script3.js"></script>
     ```
 
-  `script2` will only be tracked after `script1` has loaded and `script3` - after `script2`. If `script2` and `script3` load after `script1`, their `load` events would have been triggered _before_ realprogress had the chance to add an event listener to them, meaning that they won't be added to the loaded resources array. **This might be fixed if there's a way to check whether a `<script>` has loaded.**
+  `script2` will only be tracked after `script1` has loaded and `script3` - after `script2`. If `script2` and `script3` load before `script1`, their `load` events would have been triggered _before_ realprogress had the chance to add an event listener to them, meaning that they won't be added to the loaded resources array. **This might be fixed if there's a way to check whether a `<script>` has loaded.**
