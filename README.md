@@ -1,5 +1,5 @@
 # What is realprogress.js?
-It's a _very_ light (898 bytes) JavaScript library providing website loading progress that's realitvely...
+It's a _very_ light (902 bytes) JavaScript library providing website loading progress that's realitvely...
 
 ![realprogress.js](https://media.giphy.com/media/xUPGcBvvSVKmwKEcI8/giphy.gif)
 
@@ -10,6 +10,15 @@ Use Chrome DevTools to apply network throttling and/or disable cache to better s
 
 ## [YouTube demo](https://www.youtube.com/watch?v=yUu6lu9wTA8)
 A video showcasing realprogress with different throttling settings.
+
+# Installation
+```
+npm install realprogress
+```
+or
+```
+git clone https://github.com/hdodov/realprogress.js
+```
 
 # How does it work?
 Stuff like [ProgressBar.js](https://kimmobrunfeldt.github.io/progressbar.js/) by [Kimmo Brunfeldt](https://github.com/kimmobrunfeldt) trick the viewer by incrementing the progress value at random times by a random amount to _simulate_ progress, even if there's no progress at all. What realprogress does is it scans the page's HTML for the different resources that have to be downloaded and emits a signal upon their `onload` event.
