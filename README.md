@@ -1,9 +1,9 @@
 # What is realprogress.js?
-It's a JavaScript library that provides website loading progress that's realitvely...
+It's a _very_ light (898 bytes) JavaScript library providing website loading progress that's realitvely...
 
 ![realprogress.js](https://media.giphy.com/media/xUPGcBvvSVKmwKEcI8/giphy.gif)
 
-In some cases, it's not 100% accurate, but it tells the user that whether something is actually happening on your page. At the very least, it won't update when you have no internet connection.
+In some cases, it's not 100% accurate, but it still tells the viewer whether something is actually happening on your page. At the very least, it won't update when you have no internet connection.
 
 ## [Live demo](https://hdodov.github.io/realprogress/)
 Use Chrome DevTools to apply network throttling and/or disable cache to better see how it works.
@@ -12,7 +12,7 @@ Use Chrome DevTools to apply network throttling and/or disable cache to better s
 A video showcasing realprogress with different throttling settings.
 
 # How does it work?
-Stuff like [ProgressBar.js](https://kimmobrunfeldt.github.io/progressbar.js/) by [Kimmo Brunfeldt](https://github.com/kimmobrunfeldt) trick the user by incrementing the progress bar at random times by a random amount to simulate actual progress, even if there's no progress at all. What realprogress does is it scans the page's HTML for the different resources that would be downloaded and emits a signal upon their `onload` event.
+Stuff like [ProgressBar.js](https://kimmobrunfeldt.github.io/progressbar.js/) by [Kimmo Brunfeldt](https://github.com/kimmobrunfeldt) trick the viewer by incrementing the progress value at random times by a random amount to _simulate_ progress, even if there's no progress at all. What realprogress does is it scans the page's HTML for the different resources that have to be downloaded and emits a signal upon their `onload` event.
 
 Here's precisely what happens:
 
