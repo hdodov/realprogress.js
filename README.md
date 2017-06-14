@@ -26,7 +26,7 @@ Here's precisely what happens:
       <script type="text/javascript" src="../lib/realprogress.js"></script></head>
     ```
 
-2. After realprogress is loaded and whenever the `onload` event of a `<script>` is fired, a `load` listener is added to all `<link>`, `<script>` and `<img>` elements to know when they're ready. The reason a check for new elements is made after the `load` of each `<script>` is because they block HTML parsing. This means that everything after the tag is parsed _only after_ the script itself has loaded.
+2. After realprogress is loaded and whenever the `onload` event of a `<script>` is fired, a `load` listener is attached to all `<link>`, `<script>` and `<img>` elements to know when they're ready. The reason a check for new elements is made after the `load` of each `<script>` is because they block HTML parsing. This means that everything after the tag is parsed _only after_ the script itself has loaded.
 
 3. When the request from #1 returns a response, the HTML is processed by a regular expression which finds all `<link>` tags with `href` attribute, `<script>` with `src` and `<img>` with `src`. This way, we find out how much resources we're expecting.
 
@@ -35,9 +35,9 @@ Here's precisely what happens:
 5. The end of all loading is marked by `window.onload`. When it fires, realprogress dispatches its `onProgress` with a value of `1` and its own `onLoad`.
 
 # Usage
-It's recommended to include the library as close to the top of the document as possible. Your JavaScript which uses realprogress should be included immediately after.
+It's recommended to include the library as close to the top of the document as possible and the script using it should be immediately after.
 
-**Tip 1:** When you handle the `onProgress` event, check whether your progress bar (or whatever is visualizing the progress) exists. That's because `<script>` tags block HTML parsing, so if your script is above the bar, the bar would not yet exist.
+**Tip 1:** When you handle the `onProgress` event, check whether your progress bar (or whatever is visualizing the progress) exists. That's because `<script>` tags block HTML parsing, so if your script is above the bar, it would not yet exist.
 
 **Tip 2:** If you use PHP, you could `echo` the contents of the library + the script handling the progress in a `<script>` tag. This way, the library will be up and running immediately. This might be a bit strange, but it's under 1000 bytes, so what's the big deal.
 
