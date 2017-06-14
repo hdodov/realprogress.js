@@ -1,8 +1,11 @@
 {
   "name": "realprogress",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Lightweight JavaScript library for accurate web loading progress.",
   "main": "lib/realprogress.min.js",
+  "files": [
+    "lib/realprogress.min.js"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
