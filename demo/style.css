@@ -4,34 +4,54 @@
 	position: relative;
 }
 
-body {
-	background: #003366;
+html, body {
+	width: 100%;
+	height: 100%;
+
+	background: #111;
+	font-family: "Kanit", sans-serif;
+	font-size: 18px;
+	line-height: 1.5;
+	color: #3091ce;
 }
 
-img {
-	width: 0px;
-	height: 0px;
-}
-
-#bar {
-	width: 0px;
-	background: #3399FF;
-	transition: all 0.3s ease-out;
-
-	position: absolute;
-		top: 0;
+#sidebar {
+	width: 300px;
+	height: 100%;
+	position: fixed;
 		left: 0;
+
+	background: #efe8d8;
 }
 
-	#bar.hidden {
-		background: #003366;
+	#bar {
+		width: 0;
+		height: 10px;
+		background: #3091ce;
+		transition: width 0.3s ease-out, height 0.3s ease-out 0.2s;
 	}
 
-	#bar p {
-		padding: 10px;
+		#bar.hidden {
+			height: 0;
+		}
 
+	#loaded {
+		padding: 15px 20px;
 		white-space: nowrap;
-		font-family: sans-serif;
-		font-size: 14pt;
-		color: #fff;
+	}
+
+#images {
+	width: calc(100% - 300px);
+	height: 100%;
+	position: absolute;
+		right: 0;
+
+	font-size: 0;
+}
+
+	#images img {
+		width: 33.33%;
+		height: 25vh;
+		-o-object-fit: cover;
+     	object-fit: cover;
 	}
