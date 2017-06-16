@@ -44,7 +44,7 @@ Here's precisely what happens:
 5. The end of all loading is marked by `window.onload`. When it fires, realprogress dispatches its `onProgress` with a value of `1` and its own `onLoad`.
 
 # Usage
-It's recommended to include the library as close to the top of the document as possible and the script using it should be immediately after.
+It's recommended to include the library as close to the top of the `<body>` as possible (preferably at the top) and the script using it should be immediately after.
 
 **Tip 1:** When you handle the `onProgress` event, check whether your progress bar (or whatever is visualizing the progress) exists. That's because `<script>` tags block HTML parsing, so if your script is above the bar, it would not yet exist.
 
