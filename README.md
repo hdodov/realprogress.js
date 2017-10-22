@@ -5,7 +5,7 @@ It's a _very_ light JavaScript library providing website loading progress that's
 
 In some cases, it's not 100% accurate, but it still tells the viewer whether something is actually happening on your page. At the very least, it won't update when you have no internet connection.
 
-## [Live demo](https://hdodov.github.io/realprogress/)
+## [Live demo](https://hdodov.github.io/realprogress.js/)
 Use Chrome DevTools to apply network throttling and/or disable cache to better see how it works.
 
 ## [YouTube demo](https://www.youtube.com/watch?v=yUu6lu9wTA8)
