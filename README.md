@@ -1,5 +1,5 @@
 # What is realprogress.js?
-It's a _very_ light (902 bytes) JavaScript library providing website loading progress that's realitvely...
+It's a _very_ light JavaScript library providing website loading progress that's realitvely...
 
 ![realprogress.js](https://media.giphy.com/media/xUPGcBvvSVKmwKEcI8/giphy.gif)
 
@@ -25,7 +25,7 @@ Stuff like [ProgressBar.js](https://kimmobrunfeldt.github.io/progressbar.js/) by
 
 Here's precisely what happens:
 
-1. Immediately after realprogress is loaded, an `XMLHttpRequest` is fired with `document.location.href` as the URL. This gets the full HTML of the page it has been loaded on.
+1. When realprogress is initialized, an `XMLHttpRequest` is fired with `document.location.href` as the URL. This gets the full HTML of the page it has been loaded on.
 
     The reason something like `document.documentElement.innerHTML` isn't used is because it doesn't provide the full HTML. It will return just the HTML up to this point. It would be something like this:
     
@@ -44,35 +44,55 @@ Here's precisely what happens:
 5. The end of all loading is marked by `window.onload`. When it fires, realprogress dispatches its `onProgress` with a value of `1` and its own `onLoad`.
 
 # Usage
-It's recommended to include the library as close to the top of the `<body>` as possible (preferably at the top) and the script using it should be immediately after.
+It's recommended to include the library as close to the top of the `<body>` as possible (preferably at the top) and the script using it should be immediately after. You can even put it at the top of the `<head>`.
 
-**Tip 1:** When you handle the `onProgress` event, check whether your progress bar (or whatever is visualizing the progress) exists. That's because `<script>` tags block HTML parsing, so if your script is above the bar, it would not yet exist.
-
-**Tip 2:** If you use PHP, you could `echo` the contents of the library + the script handling the progress in a `<script>` tag. This way, the library will be up and running immediately. This might be a bit strange, but it's under 1000 bytes, so what's the big deal.
+**Tip:** When you handle the `onProgress` event, check whether your progress bar (or whatever is visualizing the progress) exists. That's because `<script>` tags block HTML parsing, so if your script is above the bar, it would not yet exist.
 
 # API
-There are just three events:
-
 ```js
+RealProgress.init = function (options) {};
+
 RealProgress.onProgress = function (progress) {
-  // progress --- value ranging from 0 to 1
+  // progress - value ranging from 0 to 1
 };
 
 RealProgress.onResourceLoad = function (resource) {
-  // resource --- loaded resource's href/src attribute
+  // resource - loaded resource's href/src attribute
 };
 
-RealProgress.onLoad = function () {
+RealProgress.onLoad = function (uncaptured) {
+  // uncaptured - array of resources that were found in the source code, but their "load" event wasn't captured
   // fired when `window.onload` is dispatched
 };
 ```
 
+# Options
+Options are passed to the `init()` metod.
+- `regex: function (tag, attribute)` - You could provide a custom regular expression for searching resources in the source code. It should return a `RegExp` object that matches the given `tag` and `attribute`.
+- `untracked: Array` - All resources you don't want to affect the progress. Can contain strings or regular expressions. If a string is found, it must match the whole resource name. If it's regex, it simply has to match.
+
+  **Tip:** You could check which resources fail to be captured via the `onLoad` method and add them here, so that they're not tracked at all. This would improve the accuracy of your loading bar.
+
+- `tags: Object` - Which tags and attributes to search in the source code. Tag names should be the keys and their attributes should be the values. Those same pairs are passed to the function getting the regex above. Defaults to:
+
+  ```json
+  {
+      "link": "href",
+      "iframe": "src",
+      "source": "src",
+      "script": "src",
+      "img": "src"
+  }
+  ```
+
+  **Warning:** You should always have `"script": "src"` or some resources might not be tracked.
+
 # Keep in mind that...
-* It uses a regular expression! Be careful with very large HTML files.
+- It uses a regular expression! Be careful with very large HTML files.
 
-* The `XMLHttpRequest` should be fast, because it requests the very document that it's been initialized from, which is likely to be cached. However, _it's not instantaneous_, meaning that some resources (probably in the `<head>`) might be loaded _before_ the library and not counted towards the progress.
+- The `XMLHttpRequest` should be fast, because it requests the very document that it's been initialized from, which is likely to be cached. However, _it's not instantaneous_, meaning that some resources (probably in the `<head>`) might be loaded _before_ the library and not counted towards the progress.
 
-* `<script>` tags block HTML parsing until they're loaded! Let's say I have this markup:
+- `<script>` tags block HTML parsing until they're loaded! Let's say I have this markup:
 
     ```html
     <img src="pic1.jpg">
@@ -83,7 +103,7 @@ RealProgress.onLoad = function () {
     
   The progress of `pic1` would be effectively tracked, but `pic2` and `pic3` will have the `load` listener attached to them _only after_ `script.js` has loaded. That's because everything after the `</script>` tag is parsed _after_ the contents of the `<script>` are present. To avoid this, simply put your `<script>` tags at the bottom of the `<body>`.
 
-* Tracking the progress of scripts will not be accurate. 😢 It's because of the previous bullet point. If you have this markup:
+- Tracking the progress of scripts will not be accurate. 😢 It's because of the previous bullet point. If you have this markup:
 
     ```html
     <script src="script1.js"></script>
